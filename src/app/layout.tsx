@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Pooya" }],
   creator: "Pooya",
   description: "Portfolio of Pooya, showcasing skills and projects.",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
