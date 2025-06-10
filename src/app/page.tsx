@@ -55,7 +55,7 @@ export default function Home() {
           </motion.h1>
           
           {/* Desktop Menu */}
-          <nav className="hidden md:flex space-x-6 space-x-reverse">
+          <nav className="hidden md:flex justify-end items-center gap-2">
             {menuItems.map((item, i) => {
               const Icon = item.icon;
               return (
