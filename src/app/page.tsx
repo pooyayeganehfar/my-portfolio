@@ -40,9 +40,17 @@ export default function Home() {
           <motion.h1 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-lg md:text-xl font-bold tracking-tight"
+            className="text-lg md:text-xl font-bold tracking-tight flex items-center gap-2 flex-row"
           >
-            Pooya Yeganefar
+            Pooya.Dev
+            <Image
+              src="/img/logo.webp"
+              alt="Logo"
+              width={32}
+              height={32}
+              className="rounded-lg"
+              priority
+            />
           </motion.h1>
           
           {/* Desktop Menu */}
