@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense, lazy } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowDown, Menu, X, Mail, Phone, Github, Instagram, Linkedin, MessageCircle, Globe, Puzzle, ChevronDown, User, Code, FolderKanban, PhoneCall } from "lucide-react";
@@ -117,7 +118,7 @@ export default function Home() {
         </AnimatePresence>
       </motion.header>
 
-      {/* Hero */}
+      {/* Hero with eager loading */}
       <section className="flex flex-col items-center justify-center min-h-screen pt-20">
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
@@ -133,20 +134,14 @@ export default function Home() {
             className="rounded-3xl border-2 border-gray-800/50 shadow-2xl"
             priority
           />
-          {/* Floating Elements */}
-          <motion.img
+          {/* Floating Elements with lazy loading */}
+          <Image
             src="/img/laptop.webp"
             alt="React"
+            width={80}
+            height={80}
             className="absolute -top-8 -right-8 w-20 h-20"
-            animate={{ 
-              y: [0, -10, 0],
-              rotate: [0, 5, 0]
-            }}
-            transition={{ 
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut" 
-            }}
+            loading="lazy"
           />
           <motion.img
             src="/img/gett.webp"
@@ -199,161 +194,166 @@ export default function Home() {
       </section>
 
       {/* مهارت‌ها */}
-      <section id="skills" className="py-20 max-w-4xl mx-auto text-right">
-        <h3 className="text-2xl font-bold mb-8 ">مهارت‌ها</h3>
-        <div className="flex flex-wrap gap-6 justify-center">
-          {[
-            { 
-              name: "React.js", 
-              icon: "/img/react.png", 
-              desc: "توسعه رابط کاربری",
-              gradient: "from-blue-500/20 to-cyan-500/20" 
-            },
-            { 
-              name: "Next.js", 
-              icon: "/img/next.png", 
-              desc: "فول استک جاوااسکریپت",
-              gradient: "from-gray-500/20 to-slate-500/20" 
-            },
-            { 
-              name: "WordPress", 
-              icon: "/img/wp.png", 
-              desc: "توسعه قالب و افزونه",
-              gradient: "from-blue-600/20 to-blue-400/20" 
-            },
-            { 
-              name: "UI/UX", 
-              icon: "/img/ui.png", 
-              desc: "طراحی تجربه کاربری",
-              gradient: "from-purple-500/20 to-pink-500/20" 
-            },
-          ].map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="w-[calc(50%-1.5rem)] md:w-[calc(25%-1.5rem)]"
-            >
-              <motion.div
-                whileHover={{ y: -5 }}
-                className={`h-full rounded-xl bg-gradient-to-br ${skill.gradient} p-[1px] backdrop-blur-xl`}
-              >
-                <Card className="h-full bg-gray-900/90 border-0">
-                  <CardContent className="p-6 text-center h-full flex flex-col items-center justify-between gap-4">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
-                      <Image
-                        src={skill.icon}
-                        alt={skill.name}
-                        width={56}
-                        height={56}
-                        className="mx-auto drop-shadow-xl"
-                      />
-                    </motion.div>
-                    <div>
-                      <h4 className="text-lg font-semibold mb-2 text-white">{skill.name}</h4>
-                      <p className="text-sm text-gray-400">{skill.desc}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* پروژه‌ها */}
-      <section id="projects" className="py-20 max-w-4xl mx-auto text-right">
-        <h3 className="text-2xl font-bold mb-6">پروژه‌ها</h3>
-        
-        {/* پروژه اصلی */}
-        <Card className="bg-gray-800/50 border-gray-700 mb-12">
-          <CardContent className="p-6">
-            <h4 className="text-xl font-semibold text-white">پروژه‌های شخصی</h4>
-            <p className="text-gray-400 mt-2">
-              به زودی پروژه‌های جذابی در حوزه هوش مصنوعی و وب اضافه خواهند شد... 🚀
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* وب‌سایت‌ها و افزونه‌ها */}
-        <div className="space-y-3">
-          <h4 className="text-xl font-semibold mb-4">نمونه کارهای وردپرسی</h4>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+        <section id="skills" className="py-20 max-w-4xl mx-auto text-right">
+          <h3 className="text-2xl font-bold mb-8 ">مهارت‌ها</h3>
+          <div className="flex flex-wrap gap-6 justify-center">
             {[
-              { name: "مجله کشاورزی زومکشت", url: "http://zoomkesht.com/", type: "website" },
-              { name: "شرکت کود رویش سبز", url: "https://ruyeshesabz.ir/", type: "website" },
-              { name: "افزونه فعال سازی و گارنتی نوا", url: "https://wp1.com", type: "plugin" },
-              { name: "فروشگاه کود و سم کالاکشت", url: "https://kalakesht.com", type: "website" },
-              { name: "فروشگاه لوازم جانبی سلونر", url: "https://selloner.ir/", type: "website" },
-              { name: "افزونه ورود و ثبت نام با پنل", url: "https://wp2.com", type: "plugin" },
-              { name: "فروشگاه ملزومات چاپ رول کالا", url: "https://rollkala.com", type: "website" },
-              { name: "افزونه مدیریت تبلیغات جهت", url: "https://wp3.com", type: "plugin" },
-              { name: "سایت فروش نهال موندراپ توسلی", url: "https://angorkaran.ir/", type: "website" },
-              { name: "فروشگاه کود و سم مستر پسته", url: "http://mrpestee.com/", type: "website" },
-              { name: "سایت منو و رزرو کافیشاپ کافه من", url: "https://cafeeman.ir/", type: "website" },
-              { name: "افزونه سوالات متداول نوشته ها", url: "https://wp3.com", type: "plugin" },
-            ]
-            .slice(0, showMore ? undefined : 6)
-            .map((item, i) => (
-              <motion.a
-                key={item.name}
-                href={item.url}
-                target="_blank"
+              { 
+                name: "React.js", 
+                icon: "/img/react.png", 
+                desc: "توسعه رابط کاربری",
+                gradient: "from-blue-500/20 to-cyan-500/20" 
+              },
+              { 
+                name: "Next.js", 
+                icon: "/img/next.png", 
+                desc: "فول استک جاوااسکریپت",
+                gradient: "from-gray-500/20 to-slate-500/20" 
+              },
+              { 
+                name: "WordPress", 
+                icon: "/img/wp.png", 
+                desc: "توسعه قالب و افزونه",
+                gradient: "from-blue-600/20 to-blue-400/20" 
+              },
+              { 
+                name: "UI/UX", 
+                icon: "/img/ui.png", 
+                desc: "طراحی تجربه کاربری",
+                gradient: "from-purple-500/20 to-pink-500/20" 
+              },
+            ].map((skill, i) => (
+              <motion.div
+                key={skill.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="group"
+                className="w-[calc(50%-1.5rem)] md:w-[calc(25%-1.5rem)]"
               >
-                <Card className="bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/50 transition-all">
-                  <CardContent className="py-3 px-4 flex items-center gap-3">
-                    {item.type === 'website' ? (
-                      <Globe className="w-4 h-4 text-blue-400 flex-shrink-0" />
-                    ) : (
-                      <Puzzle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                    )}
-                    <span className="text-sm text-gray-200 group-hover:text-white transition-colors">
-                      {item.name}
-                    </span>
-                  </CardContent>
-                </Card>
-              </motion.a>
+                <motion.div
+                  whileHover={{ y: -5 }}
+                  className={`h-full rounded-xl bg-gradient-to-br ${skill.gradient} p-[1px] backdrop-blur-xl`}
+                >
+                  <Card className="h-full bg-gray-900/90 border-0">
+                    <CardContent className="p-6 text-center h-full flex flex-col items-center justify-between gap-4">
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                      >
+                        <Image
+                          src={skill.icon}
+                          alt={skill.name}
+                          width={56}
+                          height={56}
+                          className="mx-auto drop-shadow-xl"
+                          loading="lazy"
+                        />
+                      </motion.div>
+                      <div>
+                        <h4 className="text-lg font-semibold mb-2 text-white">{skill.name}</h4>
+                        <p className="text-sm text-gray-400">{skill.desc}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
+        </section>
+      </Suspense>
 
-          {/* دکمه نمایش بیشتر */}
-          {!showMore && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center mt-6"
-            >
-              <Button
-                variant="ghost"
-                onClick={() => setShowMore(true)}
-                className="group relative"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  نمایش بیشتر
-                  <ChevronDown className="w-4 h-4" />
-                </span>
+      {/* پروژه‌ها */}
+      <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+        <section id="projects" className="py-20 max-w-4xl mx-auto text-right">
+          <h3 className="text-2xl font-bold mb-6">پروژه‌ها</h3>
+          
+          {/* پروژه اصلی */}
+          <Card className="bg-gray-800/50 border-gray-700 mb-12">
+            <CardContent className="p-6">
+              <h4 className="text-xl font-semibold text-white">پروژه‌های شخصی</h4>
+              <p className="text-gray-400 mt-2">
+                به زودی پروژه‌های جذابی در حوزه هوش مصنوعی و وب اضافه خواهند شد... 🚀
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* وب‌سایت‌ها و افزونه‌ها */}
+          <div className="space-y-3">
+            <h4 className="text-xl font-semibold mb-4">نمونه کارهای وردپرسی</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                { name: "مجله کشاورزی زومکشت", url: "http://zoomkesht.com/", type: "website" },
+                { name: "شرکت کود رویش سبز", url: "https://ruyeshesabz.ir/", type: "website" },
+                { name: "افزونه فعال سازی و گارنتی نوا", url: "https://wp1.com", type: "plugin" },
+                { name: "فروشگاه کود و سم کالاکشت", url: "https://kalakesht.com", type: "website" },
+                { name: "فروشگاه لوازم جانبی سلونر", url: "https://selloner.ir/", type: "website" },
+                { name: "افزونه ورود و ثبت نام با پنل", url: "https://wp2.com", type: "plugin" },
+                { name: "فروشگاه ملزومات چاپ رول کالا", url: "https://rollkala.com", type: "website" },
+                { name: "افزونه مدیریت تبلیغات جهت", url: "https://wp3.com", type: "plugin" },
+                { name: "سایت فروش نهال موندراپ توسلی", url: "https://angorkaran.ir/", type: "website" },
+                { name: "فروشگاه کود و سم مستر پسته", url: "http://mrpestee.com/", type: "website" },
+                { name: "سایت منو و رزرو کافیشاپ کافه من", url: "https://cafeeman.ir/", type: "website" },
+                { name: "افزونه سوالات متداول نوشته ها", url: "https://wp3.com", type: "plugin" },
+              ]
+              .slice(0, showMore ? undefined : 6)
+              .map((item, i) => (
+                <motion.a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group"
+                >
+                  <Card className="bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/50 transition-all">
+                    <CardContent className="py-3 px-4 flex items-center gap-3">
+                      {item.type === 'website' ? (
+                        <Globe className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                      ) : (
+                        <Puzzle className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      )}
+                      <span className="text-sm text-gray-200 group-hover:text-white transition-colors">
+                        {item.name}
+                      </span>
+                    </CardContent>
+                  </Card>
+                </motion.a>
+              ))}
+
+              {/* دکمه نمایش بیشتر */}
+              {!showMore && (
                 <motion.div
-                  className="absolute inset-0 rounded-lg bg-white/5"
-                  layoutId="button-hover"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </Button>
-            </motion.div>
-          )}
-        </div>
-      </section>
+                  className="text-center mt-6"
+                >
+                  <Button
+                    variant="ghost"
+                    onClick={() => setShowMore(true)}
+                    className="group relative"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      نمایش بیشتر
+                      <ChevronDown className="w-4 h-4" />
+                    </span>
+                    <motion.div
+                      className="absolute inset-0 rounded-lg bg-white/5"
+                      layoutId="button-hover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                    />
+                  </Button>
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </section>
+      </Suspense>
 
       {/* تماس */}
       <section id="contact" className="py-20 max-w-3xl mx-auto text-center">
