@@ -1,11 +1,10 @@
 "use client"
 
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowDown, Menu, X, Mail, Phone, Github, Instagram, Linkedin, MessageCircle, Globe, Puzzle, ChevronDown, User, Code, FolderKanban, PhoneCall } from "lucide-react";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
-import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const menuItems = [
@@ -19,6 +18,7 @@ export default function Home() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [showMore, setShowMore] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const { scrollY } = useScroll();
 
 	useEffect(() => {
@@ -27,8 +27,34 @@ export default function Home() {
 		});
 	}, [scrollY]);
 
+	useEffect(() => {
+		// اطمینان از اینکه صفحه از بالا شروع می‌شود
+		window.scrollTo(0, 0);
+		// بعد از لود اولیه، حالت لودینگ را غیرفعال می‌کنیم
+		setIsLoading(false);
+	}, []);
+
+	if (isLoading) {
+		return (
+			<div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					className="text-white"
+				>
+					Loading...
+				</motion.div>
+			</div>
+		);
+	}
+
 	return (
-		<main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 text-right" dir="rtl">
+		<motion.main 
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 text-right" 
+			dir="rtl"
+		>
 			{/* Navbar */}
 			<motion.header
 				initial={{ y: -100 }}
@@ -135,13 +161,23 @@ export default function Home() {
 						priority
 					/>
 					{/* Floating Elements with lazy loading */}
-					<Image
+					<motion.img
 						src="/img/laptop.webp"
 						alt="React"
 						width={80}
 						height={80}
 						className="absolute -top-8 -right-8 w-20 h-20"
 						loading="lazy"
+            animate={{
+							y: [0, -8, 0],
+							rotate: [0, -3, 0]
+						}}
+						transition={{
+							duration: 2,
+							repeat: Infinity,
+							ease: "easeInOut",
+							delay: 3
+						}}
 					/>
 					<motion.img
 						src="/img/gett.webp"
@@ -448,6 +484,6 @@ export default function Home() {
 			<footer className="py-6 text-center text-gray-500 text-sm border-t border-gray-800">
 				© {new Date().getFullYear()} Pooya | ساخته‌شده با عشق و کد 💻❤️
 			</footer>
-		</main>
+		</motion.main>
 	);
 }
