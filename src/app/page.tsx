@@ -317,7 +317,7 @@ export default function Home() {
 
 					{/* وب‌سایت‌ها و افزونه‌ها */}
 					<div className="space-y-3">
-						<h4 className="text-xl font-semibold mb-4">نمونه کارهای وردپرسی</h4>
+						<h4 className="text-xl font-semibold mb-4">نمونه کارهای من به عنوان طراح سایت</h4>
 						<div className="grid grid-cols-2 md:grid-cols-3 gap-3">
 							{[
 								{ name: "مجله کشاورزی زومکشت", url: "http://zoomkesht.com/", type: "website" },
@@ -330,8 +330,9 @@ export default function Home() {
 								{ name: "افزونه مدیریت تبلیغات جهت", url: "https://wp3.com", type: "plugin" },
 								{ name: "سایت فروش نهال موندراپ توسلی", url: "https://angorkaran.ir/", type: "website" },
 								{ name: "فروشگاه کود و سم مستر پسته", url: "http://mrpestee.com/", type: "website" },
-								{ name: "سایت منو و رزرو کافیشاپ کافه من", url: "https://cafeeman.ir/", type: "website" },
+								{ name: "فروشگاه لوازم خانگی ام تی پی کالا", url: "https://mtpkala.com/", type: "website" },
 								{ name: "افزونه سوالات متداول نوشته ها", url: "https://wp3.com", type: "plugin" },
+								{ name: "منو آنلاین هتل پارادایس", url: "https://hotel-menu-gray.vercel.app", type: "website" },
 							]
 								.slice(0, showMore ? undefined : 6)
 								.map((item, i) => (
