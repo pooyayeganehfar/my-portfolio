@@ -306,14 +306,40 @@ export default function Home() {
 					<h3 className="text-2xl font-bold mb-6">پروژه‌ها</h3>
 
 					{/* پروژه اصلی */}
-					<Card className="bg-gray-800/50 border-gray-700 mb-12">
-						<CardContent className="p-6">
-							<h4 className="text-xl font-semibold text-white">پروژه‌های شخصی</h4>
-							<p className="text-gray-400 mt-2">
-								به زودی پروژه‌های جذابی در حوزه هوش مصنوعی و وب اضافه خواهند شد... 🚀
-							</p>
-						</CardContent>
-					</Card>
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5 }}
+						viewport={{ once: true }}
+					>
+						<Card className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 border-gray-700/50 mb-12 overflow-hidden group">
+							<CardContent className="p-0">
+								<div className="flex flex-col md:flex-row items-stretch">
+									<div className="md:w-1/3 relative overflow-hidden">
+										<Image
+											src="/img/ringe.webp"
+											alt="Ringe Team"
+											width={400}
+											height={300}
+											className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+										/>
+									</div>
+									<div className="md:w-2/3 p-6 md:p-8">
+										<h4 className="text-2xl font-bold text-white mb-3">تیم رینگ</h4>
+										<p className="text-gray-300 mb-4 leading-relaxed">
+											تیمی خلاق، آماده و تازه‌نفس که با تخصص و اشتیاق، پروژه‌های استارتاپی را به بهترین شکل به سرانجام می‌رسانند.
+										</p>
+										<Button variant="secondary" asChild>
+											<a href="https://ringe.ir" target="_blank" className="flex items-center gap-2">
+												<Globe className="w-4 h-4" />
+												مشاهده وب‌سایت
+											</a>
+										</Button>
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+					</motion.div>
 
 					{/* وب‌سایت‌ها و افزونه‌ها */}
 					<div className="space-y-3">
