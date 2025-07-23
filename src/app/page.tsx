@@ -315,17 +315,17 @@ export default function Home() {
 						<Card className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 border-gray-700/50 mb-12 overflow-hidden group">
 							<CardContent className="p-0">
 								<div className="flex flex-col md:flex-row items-stretch">
-									<div className="md:w-1/3 relative overflow-hidden">
+									<div className="w-1/2 mx-auto md:w-1/4 relative aspect-[4/3] md:aspect-auto mb-0">
 										<Image
 											src="/img/ringe.webp"
 											alt="Ringe Team"
-											width={400}
-											height={300}
+											width={300}
+											height={225}
 											className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
 										/>
 									</div>
-									<div className="md:w-2/3 p-6 md:p-8">
-										<h4 className="text-2xl font-bold text-white mb-3">تیم رینگ</h4>
+									<div className="w-full md:w-3/4 p-4 md:p-8">
+										<h4 className="text-2xl font-bold text-white mb-2 md:mb-3">تیم رینگ</h4>
 										<p className="text-gray-300 mb-4 leading-relaxed">
 											تیمی خلاق، آماده و تازه‌نفس که با تخصص و اشتیاق، پروژه‌های استارتاپی را به بهترین شکل به سرانجام می‌رسانند.
 										</p>
